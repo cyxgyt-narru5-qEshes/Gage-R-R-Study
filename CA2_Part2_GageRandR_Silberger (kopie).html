@@ -1,0 +1,469 @@
+---
+title: "Measurement System Analysis and Gage R&R"
+output: html_document
+date: "2025-02-27"
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Filip Silberger - Quality and Reliability Modelling {.tabset}
+
+![](DkIT-Logo.jpeg){width="400"}
+
+## Introduction
+
+### What is measurement?
+
+According to (BSI, 1993) examples of measurement can be expressed as:
+
+-   Record of a measured dimension such as length, or diameter.
+
+-   Record of a physical property such as density or speed.
+
+These "records" or measurements using instrumentation can be used
+as data to control and monitor products performance by a designer or a
+manufacturing engineers.
+
+![Figure 1 - Measuring Instruments across
+industries](MDV.jpeg){width="500"}
+
+### What is the impact of poor measurement?
+
+Poor measurement can arise due to:
+
+Human error - employees are not trained properly to take correct
+measurements. 
+
+-   Calibration error - a machine or an instrument is not calibrated to
+    take correct measurements. 
+
+-   Environmental factors - variations in temperature, humidity or
+    vibration between quality control and manufacturing sectors.
+
+There, "poor" or incorrect measurements can directly influence a product
+quality or a manufacturing process leading to:
+
+-   Manufacturing products outside of a required tolerance.
+
+-   Misalignment during
+
+-   Increased waste and production costs
+
+-   Customer dissatisfaction
+
+### What are the economics of measurement?
+
+Correct measurements that will result in manufacturing products within a
+tolerance zone financially depend on:
+
+-   Employee training and simplification of processes to reduce human
+    error.
+
+-   Repeated calibration of measuring instruments and manufacturing
+    machinery.
+
+-   Control of temperature and humidity at the manufacturing and quality
+    control department.
+
+By controlling these factors reduction in rework, scrap and customer
+returns will results in a greater financial return.
+
+### How should measurement instruments be maintained?
+
+According to TRACAL. (n.d.), example of a maintenance of vernier
+calipers: 
+
+**Don't:**
+
+Throw or drop calipers. 
+
+Use callipers as a substitute tool (screwdriver). 
+
+Exceed the measuring range of calipers.
+
+**Do:**
+
+Clean the measuring jaws and whole calipers 
+
+Return it into its storage cage 
+
+Regulary calibration by a metrological company or by gauge blocks.
+
+![Figure 2 - Gauge Blocks](JGB.png)
+
+## Gage R&R Overview & Key Terms
+
+Gage R&R refers to the Repeatability and Reproducibility of measuring
+methods to find how much is processed out of tolerance due to the wrong
+measuring system. (Naomi, 2014)
+
+**Importance of Gage R&R**
+
+As mentioned the R&R study measures the variation in measurements caused
+by the measuring itself rather than manufacturing processes which shows
+also highlights the precision of a employee measuring methods. This
+method is cost effective and time efficient due to firstly focusing on
+measuring system's repeatability and reproducibility rather than
+optimizing a manufacturing processes and technology (Naomi, 2014).
+
+According to (BSI, 2023) terms below are defined as:
+
+**Repeatability**
+
+Likelihood of repeating the same measurements in a short period using
+constant conditions (laboratory, equipment, operator).
+
+**Reproducibility**
+
+Likelihood of obtaining the same measurements using different conditions
+((laboratory, equipment, operator).
+
+### What is a Measuring System Analysis
+
+![Figure 3 - Measuring System Analysis (Naomi, 2014)](MSM.png)
+
+As seen in Figure 3 the MSA describes where a variation could occur
+during part inspection, measuring and analyzes the overall quality of
+this measuring system.
+
+### What are the components of measurement error?
+
+An example from (Naomi, 2014) focuses on measuring 3 different parts by
+3 different operators in an arrangement of Operator A measures x,y,z
+part and then Operator B measures x,y,z with 4 trails for each part.
+
+This data is then used to calculate the range within all the data falls
+and the mean value of the measured dimension of each operator. If all
+operators measured data is averaged we can find the measuring system
+**repeatability and reproducibility errors**.
+
+If R&R data falls within 10% the measuring system is acceptable. 
+
+![Figure 4 - Acceptable R&R Limits (Naomi, 2014)](RRR.png)
+
+## Methodology
+
+This assignment followed a procedure shown in Figure 5.
+
+The Experiment was carried out in following order:
+
+-   Calibrated vernier calipers
+
+-   Measured length of a screw
+
+-   Recorded measured data into a table
+
+-   Repeated until reaching 10 screws
+
+The crossed R&R method was used as a measuring system as shown in Figure
+6.
+
+### How was the data collected for the study?
+
+![Figure 3 - RR Procedure](RR%20Procedure.png)]
+
+Figure 5 - R&R Methodology (BOSCH, 2020)
+
+![Figure 4 - Crossed R&R](CM.png)]
+
+Figure 6 - Crossed R&R (Naomi, 2014)
+
+### What measuring instrument was used and what component?
+
+![Figure 7 - Vernier calipers and screws](images/1000015281-01.jpg)
+
+## Measured Data
+
+```{r echo=FALSE, fig.height=15, fig.width=15, results='asis'}
+# Data for 10 parts, 3 operators and 2 measurements per part
+library(knitr)
+Operator<- factor(rep(1:3, each = 20))
+
+Part<- factor(rep(rep(1:10, each = 2), 3))
+
+# When inputting #operator data: part 1, part 1, part 2, part 2 etc.
+
+Length<-c(49.36,49.37,48.04,48.01,49.34,49.37,48.23,48.19,47.95,47.87,#op1
+
+            48.01,47.92,49.51,49.46,49.45,49.33,49.32,49.32,49.53,49.49,
+            
+
+            ##########################
+
+            49.40,49.46,48.00,48.01,49.30,49.40,48.14,48.11,47.78,47.82,#op2
+
+            47.91,47.94,49.38,49.39,49.28,49.23,49.27,49.32,49.44,49.48,
+
+            ##########################
+
+            49.42,49.37,48.03,48.02,49.39,49.31,48.26,48.17,47.91,47.81,#op3
+
+            47.98,47.93,49.40,49.38,49.32,49.26,49.36,49.38,49.52,49.51)
+
+Data<-data.frame(Part,Operator,Length); 
+kable(Data, caption = "Measurement Data Table", col.names = c("Part", "Operator", "Length (mm)"))
+```
+
+## Gage R&R Study Graphical Results
+
+```{r echo=FALSE, fig.height=15, fig.width=15, results='hide'}
+# Data for 10 parts, 3 operators and 2 measurements per part
+library(knitr)
+Operator<- factor(rep(1:3, each = 20))
+
+Part<- factor(rep(rep(1:10, each = 2), 3))
+
+# When inputting #operator data: part 1, part 1, part 2, part 2 etc.
+
+Length<-c(49.36,49.37,48.04,48.01,49.34,49.37,48.23,48.19,47.95,47.87,#op1
+
+            48.01,47.92,49.51,49.46,49.45,49.33,49.32,49.32,49.53,49.49,
+            
+
+            ##########################
+
+            49.40,49.46,48.00,48.01,49.30,49.40,48.14,48.11,47.78,47.82,#op2
+
+            47.91,47.94,49.38,49.39,49.28,49.23,49.27,49.32,49.44,49.48,
+
+            ##########################
+
+            49.42,49.37,48.03,48.02,49.39,49.31,48.26,48.17,47.91,47.81,#op3
+
+            47.98,47.93,49.40,49.38,49.32,49.26,49.36,49.38,49.52,49.51)
+
+Data<-data.frame(Part,Operator,Length); 
+kable(Data, caption = "Measurement Data Table", col.names = c("Part", "Operator", "Length (mm)"))
+
+#Load package
+
+library("SixSigma")
+
+
+
+#Perform gage R & R
+
+ss.rr(var = Length, part = Part, appr = Operator, data = Data,
+
+                # Delete if tolerance is unknown
+
+               main = "Six Sigma Gage R&R Study",
+
+               sub = "",
+
+               alphaLim = 0.05,
+
+               errorTerm = "interaction",
+
+               digits = 4,
+
+               method = "crossed",
+
+               print_plot = TRUE,
+
+               signifstars = TRUE)
+
+```
+
+## Gage R&R Study Numerical Results
+
+```{r echo=FALSE, fig.height=15, fig.width=15, results='show'}
+# Data for 10 parts, 3 operators and 2 measurements per part
+library(knitr)
+Operator<- factor(rep(1:3, each = 20))
+
+Part<- factor(rep(rep(1:10, each = 2), 3))
+
+# When inputting #operator data: part 1, part 1, part 2, part 2 etc.
+
+Length<-c(49.36,49.37,48.04,48.01,49.34,49.37,48.23,48.19,47.95,47.87,#op1
+
+            48.01,47.92,49.51,49.46,49.45,49.33,49.32,49.32,49.53,49.49,
+            
+
+            ##########################
+
+            49.40,49.46,48.00,48.01,49.30,49.40,48.14,48.11,47.78,47.82,#op2
+
+            47.91,47.94,49.38,49.39,49.28,49.23,49.27,49.32,49.44,49.48,
+
+            ##########################
+
+            49.42,49.37,48.03,48.02,49.39,49.31,48.26,48.17,47.91,47.81,#op3
+
+            47.98,47.93,49.40,49.38,49.32,49.26,49.36,49.38,49.52,49.51)
+
+
+#Load package
+
+library("SixSigma")
+
+
+
+#Perform gage R & R
+
+ss.rr(var = Length, part = Part, appr = Operator, data = Data,
+
+                # Delete if tolerance is unknown
+
+               main = "Six Sigma Gage R&R Study",
+
+               sub = "",
+
+               alphaLim = 0.05,
+
+               errorTerm = "interaction",
+
+               digits = 4,
+
+               method = "crossed",
+
+               print_plot = FALSE,
+
+               signifstars = FALSE)
+
+```
+
+## Discussion
+
+This whole section is comparing an example of a R&R study used in
+(Biz-Pi, 2025) to proof check assignment results.
+
+**Numerical Results**
+
+**Total Gage R&R Contribution**
+
+Represent the percentage contribution of a value which combines the sum
+of the overall variation of varying components (Repeatability,
+Reproducibility, Operator) and part-to-part variation.
+
+Results found from the numerical solution show a value of Total Gage R&R
+contribution of 0.47 while combined with Part to Part 99.53 will result
+in a total contribution in variation of 100.
+
+The criteria to have a successful R&R study according to
+(Biz-Pi, 2025) is that the Total gage R&R contribution should be below
+1%, which in our study was found to be 0.47, which is within the
+acceptable limit.
+
+**Several distinct categories**
+
+Represent a value of several groups that can be divided into different
+categories.
+
+The more NDCs we have, the more data can be separated from each other. 
+
+The goal is to have more than 10; our study found to have 20, which is
+the acceptable limit.
+
+**Graphical Results** **Graph Components of Variation**
+
+A summary of variation, Repeatability, Reproducibility and Part2Part. 
+
+There are two compared results % Contribution % Study Variance (overall
+variation).
+
+The %StudyVar was found to be 6.89 which is in the acceptable limit. 
+
+The repeatability and reproducibility are kept low showing no variance
+is in these abilities showing a solid measuring system.
+
+**Range Chart by Operator**
+
+Represents a repeatability and reproducibility variation.
+
+All data is in the control limits of each operator resulting in a
+repeatable and reproducable measuring system.
+
+**Xbar chart by Operator**
+
+Taking upper and lower control limits from the R chart this graph
+represents part variation.
+
+Ideally, all of these points should be very far away from the control
+limits.
+
+Meaning that the variation between the parts is easy to detect
+neglecting the variation in the measuring system. All of the points
+are very far away from control limits in each operator's measurements.
+
+**Length by Part**
+
+Represents readings of each operator. The length variation between parts
+differs by 0.5 [mm] which results in a greatspread along a y-axis of
+datapoints. 
+
+Data points are close to each other in most samples resulting in a
+reading very close to a part average. In
+samples 5,7,8 a great difference between the points can be
+spotted highlighting that the system is having a hard
+time differentiating between an error in measuring the system or a part
+itself.
+
+**Length by Operator**
+
+Shows the difference between operators mean length measurements. This
+chart should be ideally straight no diffrence between measured mean
+length of each operator.
+
+In our scenario a mean length of operator 1 and 3 is very similar while
+2 decreases by a slight amount.
+
+**Operator Interaction**
+
+Shows a difference between operators interactions of how they measured
+parts length, ideally all operators should measure the length as a same
+value. T
+
+he greatest iteraction can be seen at sample size 7 and 8 where operator
+1 measured length completely differently than other 2 operators. 
+
+## Conclusions
+
+According to Reference this study shows acceptable limits of:
+
+-   Total Gage R&R Contribution found to be 0.47.
+
+-   Total Gage R&R Variance found to be 6.89.
+
+-   Number of distinct categories found to be 20.
+
+All graphical results shows that this measuring system is highly
+repeatable, reproducible.
+
+![Figure 8 - Numerical Acceptable results
+(Biz-Pi, 2025)](1.png){width="475"}
+
+![Figure 9 - Graphical Acceptable Results
+(Biz-Pi, 2025)](2.png){width="400"}
+
+## References
+
+British Standards Institution (BSI), 1993. BS ISO 3534-2:1993
+Statistics. Vocabulary and symbols. Statistical quality control. London:
+BSI.
+
+BSI, 2023. *BS ISO 5725-1:2023 - TC Tracked Changes. Accuracy (trueness
+and precision) of measurement methods and results. General principles
+and definitions*. British Standards Institution.
+
+Biz-Pi. (2025). *Interpreting Minitab’s Gage R&R Chart.* Retrieved
+from <https://www.biz-pi.com/interpreting-minitabs-gage-rr-chart/>
+
+TRACAL. (n.d.). *Care and maintenance of calipers*. TRACAL. Retrieved
+March 9, 2025,
+from <https://www.tra-cal.com/tracal-lab-resources/care-and-maintenance-of-calipers>
+
+Naomi, Ted Hessing, Ramana PV. “Gage Repeatability and Reproducibility
+(R&R).” Six Sigma Study Guide, 29 June 2014,
+<https://sixsigmastudyguide.com/repeatability-and-reproducibility-rr/>.
+
+BOSCH (2020). Capability of Measurement and Test Processes . [online]
+Available
+at:<https://assets.bosch.com/media/global/bosch_group/purchasing_and_logistics/inform>ation_for_business_partners/downloads/quality_docs/general_regulations/bosch_publications/booklet-no10-capability-of-measurement-and-test-processes_EN.pdf
+[Accessed 24 Feb. 2025].
